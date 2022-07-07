@@ -40,14 +40,27 @@ hook.Add("PhysgunPickup", tag, function(pl, ent)
 	local ownerid = ent:GetNWString("XPPPOwnerID")
 
 	if pl:IsAdmin() then
+		if ent:IsPlayer() then
+			return
+		end
 		if IsValid(owner) or ownerid ~= "" then
-			unFreeze(ent)
+			if ent:GetClass():find("prop_") then
+				unFreeze(ent)
+			end
+		elseif not IsValid(owner) and ownerid == "" then
+			return false
 		else
 			return false
 		end
 	else
-		if IsValid(owner) and owner == pl then
-			unFreeze(ent)
+		if IsValid(owner) then
+			if owner == pl then
+				if ent:GetClass():find("prop_") then
+					unFreeze(ent)
+				end
+			else
+				return false
+			end
 		else
 			return false
 		end
@@ -60,17 +73,24 @@ hook.Add("PhysgunDrop", tag, function(pl, ent)
 	local phys = ent:GetPhysicsObject()
 
 	if pl:IsAdmin() then
+		if ent:IsPlayer() then
+			return
+		end
 		if IsValid(owner) or ownerid ~= "" then
-			if IsValid(phys) and SERVER then
+			if IsValid(phys) and SERVER and ent:GetClass():find("prop_") then
 				phys:EnableMotion(false)
 			end
+		elseif not IsValid(owner) and ownerid == "" then
+			return false
 		else
 			return false
 		end
 	else
-		if IsValid(owner) and owner == pl then
-			if IsValid(phys) and SERVER then
-				phys:EnableMotion(false)
+		if IsValid(owner) then
+			if owner == pl then
+				if IsValid(phys) and SERVER and ent:GetClass():find("prop_") then
+					phys:EnableMotion(false)
+				end
 			end
 		else
 			return false
@@ -188,7 +208,7 @@ if SERVER then
 	end)
 
 	hook.Add("OnPhysgunFreeze", tag, function(_, phys, ent, pl)
-		if IsValid(pl) and IsValid(ent) and not XPPP.IsBlocked(ent) then
+		if IsValid(pl) and IsValid(ent) and not XPPP.IsBlocked(ent) and ent:GetClass():find("prop_") then
 			ent:SetCollisionGroup(COLLISION_GROUP_NONE)
 			ent:SetRenderMode(RENDERMODE_NORMAL)
 			ent:SetColor(ent.LastColor or color_white)
