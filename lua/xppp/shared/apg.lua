@@ -36,10 +36,6 @@ function XPPP.IsBlocked(ent)
 end
 
 hook.Add("PhysgunPickup", tag, function(pl, ent)
-	if not ent:GetClass():find("prop") then
-		return
-	end
-		
 	local owner = ent:GetNWEntity("XPPPOwner")
 	local ownerid = ent:GetNWString("XPPPOwnerID")
 
@@ -72,10 +68,6 @@ hook.Add("PhysgunPickup", tag, function(pl, ent)
 end)
 
 hook.Add("PhysgunDrop", tag, function(pl, ent)
-	if not ent:GetClass():find("prop") then
-		return
-	end
-		
 	local owner = ent:GetNWEntity("XPPPOwner")
 	local ownerid = ent:GetNWString("XPPPOwnerID")
 	local phys = ent:GetPhysicsObject()
