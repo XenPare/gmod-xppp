@@ -30,8 +30,7 @@ XPPP.CFG.CustomBlockedModels = {}
 -- ["exampletool"] = true
 XPPP.CFG.CustomBlockedTools = {}
 
--- custom entities that won't spawn and change
--- collision to normal if trying to spawn them directly in the prop
+-- custom entities that will prevent players from freezing props in themselves
 -- use lower
 -- ["ent_example"] = true
 XPPP.CFG.CustomSpawnBlockingEntities = {}
