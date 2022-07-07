@@ -12,7 +12,6 @@ return {
 		["models/props_buildings/row_res_1_fullscale.mdl"] = true,
 		["models/props_animated_breakable/smokestack_gib_01.mdl"] = true,
 		["models/props_trainstation/traincar_bars001.mdl"] = true,
-		["models/gmod_tower/trampoline.mdl"] = true,
 		["models/props_phx/trains/fsd-overrun2.mdl"] = true,
 		["models/props_buildings/project_building03_skybox.mdl"] = true,
 		["models/props_phx/trains/tracks/track_2x.mdl"] = true,
