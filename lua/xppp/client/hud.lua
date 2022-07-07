@@ -15,7 +15,6 @@ surface.CreateFont("xppp_shadow", {
 	extended = true
 })
 
-local ang = -15
 local clr_shadow = ColorAlpha(color_black, 230)
 local clr_green = HSVToColor(155, 1, 1)
 local clr_red = HSVToColor(0, 1, 1)
