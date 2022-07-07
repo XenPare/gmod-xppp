@@ -38,9 +38,8 @@ end
 ]]
 
 if cfg.APGEnabled then
-	if SERVER then
-		include("server/apg.lua")
-	end
+	AddCSLuaFile("shared/apg.lua")
+	include("shared/apg.lua")
 end
 
 --[[
