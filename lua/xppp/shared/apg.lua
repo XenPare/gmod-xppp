@@ -207,6 +207,37 @@ if SERVER then
 		ent:SetNWString("XPPPOwnerID", pl:SteamID())
 	end)
 
+	hook.Add("OnEntityCreated", tag, function(ent)
+		timer.Simple(0.1, function()
+			local cr = ent.Founder
+			local crid = ent.FounderSID
+			if cr or cid then
+				if cr and IsValid(cr) then
+					ent:SetNWEntity("XPPPOwner", cr)
+				end
+
+				local crid = ent.FounderSID
+				if crid then
+					local sid = util.SteamIDFrom64(crid)
+					ent:SetNWString("XPPPOwnerID", sid)
+				end
+			else
+				local df = ent.OnDieFunctions
+				if df then
+					local tbl = df.undo1
+					if tbl then
+						local args = tbl.Args
+						local pl = args[2]
+						if IsValid(pl) then
+							ent:SetNWEntity("XPPPOwner", pl)
+							ent:SetNWString("XPPPOwnerID", pl:SteamID())
+						end
+					end
+				end
+			end
+		end)
+	end)
+
 	hook.Add("OnPhysgunFreeze", tag, function(_, phys, ent, pl)
 		if IsValid(pl) and IsValid(ent) and not XPPP.IsBlocked(ent) and ent:GetClass():find("prop_") then
 			ent:SetCollisionGroup(COLLISION_GROUP_NONE)
