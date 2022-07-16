@@ -133,17 +133,6 @@ if SERVER then
 			return false
 		end
 
-		local props = 0
-		for _, e in ipairs(ents.FindInSphere(pos, 5)) do
-			if e:GetClass():find("prop_") then
-				props = props + 1
-			end
-		end
-
-		if props > 0 then
-			return false
-		end
-
 		if cfg.CustomBlockedModels[mdl:lower()] or cfg.CustomBlockedModels[mdl] then
 			pl:ChatPrint("This model is blocked!")
 			return false
