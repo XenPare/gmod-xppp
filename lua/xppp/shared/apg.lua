@@ -39,6 +39,10 @@ hook.Add("PhysgunPickup", tag, function(pl, ent)
 	local owner = ent:GetNWEntity("XPPPOwner")
 	local ownerid = ent:GetNWString("XPPPOwnerID")
 
+	if ent.PhysgunPickup then
+		return ent:PhysgunPickup(pl)
+	end
+
 	if pl:IsAdmin() then
 		if ent:IsPlayer() then
 			return
