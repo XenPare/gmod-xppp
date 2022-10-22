@@ -1,5 +1,6 @@
 return {
 	models = {
+		["models/props_vehicles/truck003a.mdl"] = true,
 		["models/props/de_nuke/ibeams_bombsitea.mdl"] = true,
 		["models/props_vehicles/generatortrailer01.mdl"] = true,
 		["models/props_canal/boat001a.mdl"] = true,
