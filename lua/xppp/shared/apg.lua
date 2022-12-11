@@ -80,6 +80,7 @@ hook.Add("PhysgunDrop", tag, function(pl, ent)
 		if ent:IsPlayer() then
 			return
 		end
+
 		if IsValid(owner) or ownerid ~= "" then
 			if IsValid(phys) and SERVER and ent:GetClass():find("prop_") then
 				phys:EnableMotion(false)
@@ -90,11 +91,9 @@ hook.Add("PhysgunDrop", tag, function(pl, ent)
 			return false
 		end
 	else
-		if IsValid(owner) then
-			if owner == pl then
-				if IsValid(phys) and SERVER and ent:GetClass():find("prop_") then
-					phys:EnableMotion(false)
-				end
+		if IsValid(owner) and owner == pl then
+			if IsValid(phys) and SERVER and ent:GetClass():find("prop_") then
+				phys:EnableMotion(false)
 			end
 		else
 			return false
@@ -202,31 +201,40 @@ if SERVER then
 
 	hook.Add("OnEntityCreated", tag, function(ent)
 		timer.Simple(0.1, function()
+			if not IsValid(ent) then
+				return
+			end
+
 			local cr = ent.Founder
 			local crid = ent.FounderSID
-			if cr or cid then
+			if cr or crid then
 				if cr and IsValid(cr) then
 					ent:SetNWEntity("XPPPOwner", cr)
 				end
 
-				local crid = ent.FounderSID
 				if crid then
 					local sid = util.SteamIDFrom64(crid)
 					ent:SetNWString("XPPPOwnerID", sid)
 				end
 			else
 				local df = ent.OnDieFunctions
-				if df then
-					local tbl = df.undo1
-					if tbl then
-						local args = tbl.Args
-						local pl = args[2]
-						if IsValid(pl) then
-							ent:SetNWEntity("XPPPOwner", pl)
-							ent:SetNWString("XPPPOwnerID", pl:SteamID())
-						end
-					end
+				if not df then
+					return
 				end
+
+				local tbl = df.undo1
+				if not tbl then
+					return
+				end
+
+				local args = tbl.Args
+				local pl = args[2]
+				if not IsValid(pl) then
+					return
+				end
+
+				ent:SetNWEntity("XPPPOwner", pl)
+				ent:SetNWString("XPPPOwnerID", pl:SteamID())
 			end
 		end)
 	end)

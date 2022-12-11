@@ -1,18 +1,18 @@
 CPPI = {}
 
-local pl = FindMetaTable("Player")
-local ent = FindMetaTable("Entity")
+local plMeta = FindMetaTable("Player")
+local entMeta = FindMetaTable("Entity")
 
 function CPPI:GetName()
 	return "XenPare Prop Protection"
 end
 
 function CPPI:GetVersion()
-    return "1.0.0"
+	return "1.0.0"
 end
 
 function CPPI:GetInterfaceVersion()
-    return "1.0.0"
+	return "1.0.0"
 end
 
 function CPPI:GetNameFromUID(uid)
@@ -27,23 +27,23 @@ function CPPI:GetNameFromUID(uid)
 			break
 		end
 	end
-    return name
+	return name
 end
 
-function pl:CPPIGetFriends()
+function plMeta:CPPIGetFriends()
 	return {}
 end
 
-function ent:CPPIGetOwner()
+function entMeta:CPPIGetOwner()
 	return self:GetNWEntity("XPPPOwner")
 end
 
 if SERVER then
-	function ent:CPPISetOwner(pl)
+	function entMeta:CPPISetOwner(pl)
 		self:GetNWEntity("XPPPOwner", pl)
 	end
 
-	function ent:CPPISetOwnerUID(uid)
+	function entMeta:CPPISetOwnerUID(uid)
 		local sid = ""
 		for _, pl in ipairs(player.GetAll()) do
 			if pl:UserID() == uid then
@@ -51,8 +51,8 @@ if SERVER then
 				break
 			end
 		end
-        self:SetNWString("XPPPOwnerID", sid)
-    end
+		self:SetNWString("XPPPOwnerID", sid)
+	end
 
 	local function canUse(ent, pl)
 		local owner = ent:GetNWEntity("XPPPOwner")
@@ -65,19 +65,19 @@ if SERVER then
 		return true
 	end
 
-	function ent:CPPICanTool(pl)
+	function entMeta:CPPICanTool(pl)
 		return canUse(self, pl)
 	end
 
-	function ent:CPPICanPhysgun(pl)
+	function entMeta:CPPICanPhysgun(pl)
 		return canUse(self, pl)
 	end
 
-	function ent:CPPICanPickup(pl)
+	function entMeta:CPPICanPickup(pl)
 		return canUse(self, pl)
 	end
 
-	function ent:CPPICanPunt(pl)
+	function entMeta:CPPICanPunt(pl)
 		return XPPP.CFG.GravGunPuntsEnabled
 	end
 end

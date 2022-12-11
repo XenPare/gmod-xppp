@@ -28,12 +28,12 @@ hook.Add("HUDPaint", "XPPP HUD", function()
 		return
 	end
 
-	local ownerid = tr_ent:GetNWString("XPPPOwnerID")
+	ownerid = tr_ent:GetNWString("XPPPOwnerID")
 	if ownerid == "" then
 		return
 	end
 
-	owner = tr_ent:GetNWEntity("XPPPOwner")
+	owner = player.GetBySteamID(ownerid)
 	if IsValid(owner) then
 		txt = owner:Name()
 		clr = (owner == pl or pl:IsAdmin()) and clr_green or clr_red
