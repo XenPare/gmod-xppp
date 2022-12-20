@@ -3,7 +3,7 @@
 ]]
 
 concommand.Add("xppc_clear_disconnected", function(pl)
-	if not pl:IsAdmin() then
+	if IsValid(pl) and not pl:IsAdmin() then
 		return
 	end
 
@@ -24,7 +24,7 @@ end)
 ]]
 
 concommand.Add("xppc_clear_all", function(pl)
-	if not pl:IsAdmin() then
+	if IsValid(pl) and not pl:IsAdmin() then
 		return
 	end
 
