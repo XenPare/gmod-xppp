@@ -216,6 +216,12 @@ if SERVER then
 					local sid = util.SteamIDFrom64(crid)
 					ent:SetNWString("XPPPOwnerID", sid)
 				end
+			elseif ent.GetPlayer then
+				local pl = ent:GetPlayer()
+				if IsValid(pl) then
+					ent:SetNWEntity("XPPPOwner", pl)
+					ent:SetNWString("XPPPOwnerID", pl:SteamID())
+				end
 			else
 				local df = ent.OnDieFunctions
 				if not df then
